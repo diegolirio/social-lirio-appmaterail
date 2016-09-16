@@ -1,4 +1,4 @@
-# social-lirio-appmaterail
+# social-lirio-appmaterial
 Rede Social  
 
 ### Tecnologias
