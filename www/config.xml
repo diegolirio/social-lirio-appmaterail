@@ -4,15 +4,15 @@
     <name>Social Lirio</name>
 
     <description>
-		A rede social da favela
+		A rede social inovadora
     </description>
 
     <author href="http://diegolirio.com"  
         email="diegolirio.dl@gmail.com"> Diego Lirio
     </author>
 
-	<icon src="5219.png" />
-	<gap:splash src="L-splash" />
+	<icon src="img/logo.png" />
+	<gap:splash src="img/splash.png" />
 	
 	<preference name="orientation" value="portrait" />
 	<!--<preference name="fullscreen" value="true" />-->
