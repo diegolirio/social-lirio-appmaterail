@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" version="1.0.0" id="com.diegolirio.sociallirio">
+
+    <name>Social Lirio</name>
+
+    <description>
+		A rede social da favela
+    </description>
+
+    <author href="http://diegolirio.com"  
+        email="diegolirio.dl@gmail.com"> Diego Lirio
+    </author>
+
+	<icon src="5219.png" />
+	<gap:splash src="L-splash" />
+	
+	<preference name="orientation" value="portrait" />
+	<!--<preference name="fullscreen" value="true" />-->
+	
+	<allow-intent href="http://*/*" />
+	<allow-intent href="https://*/*" />
+	
+	<access origin="*"/>
+	
+	<gap:platform name="android" />
+	
+</widget>

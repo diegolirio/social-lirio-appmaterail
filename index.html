@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Social Lirio</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body ng-controller="MyController">
+
+	<div class="container">
+		<h1 class="text-center"><a ng-click="atualizar()">Social Lirio!</a></h1>
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<form class="form-horizontal" ng-submit="postSave(post)">
+					<fieldset>
+						<legend>Novo post</legend>
+						<div class="row">
+							<div class="col-sm-9">
+								<textarea rows="2" class="form-control" ng-model="post.texto"></textarea>
+							</div>
+							<div class="col-sm-1">
+								<button class="btn btn-block btn-success">Publicar</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		
+		<br/><br/>
+		
+		<div class="row">
+			<fieldset class="col-sm-12">
+				<legend class="text-danger">Posts</legend>
+				<blockquote class="lead well" ng-repeat="p in posts">
+					<button class="btn btn-default text-danger pull-right" ng-click="excluir(p.id)">
+						<!-- <span class="glyphicon glyphicon-trash text-danger"></span> -->
+						X
+					</button>				
+					<small>{{p.texto}}</small>
+				</blockquote>
+				<hr>
+				<p class="lead text-center" ng-hide="posts || post.length > 0">
+					Nenhum post publicado.
+				</p>
+			</fieldset>
+		</div>
+		
+	</div>
+	
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript">
+		
+		var app = angular.module('app', []);
+		
+		app.controller('MyController', ['$http', '$scope', function($http, $scope) {
+		
+			$scope.atualizar = function() {
+				
+				$http.get('https://sociallirio.firebaseio.com/posts.json').then(function(resp) {	
+					$scope.posts = [];
+					angular.forEach(resp.data, function(post, id) {
+						post.id = id;
+						$scope.posts.push(post);
+					})
+				});
+			}				
+
+			$scope.postSave = function(post) {
+				var _id = Math.floor((Math.random() * 9999) + 1) + "w" + Date.now();
+				$http.put('https://sociallirio.firebaseio.com/posts/'+_id+'.json', post).then(function(resp) {
+					$scope.atualizar();
+				}, function(error) {
+					alert(error.data);
+				});
+			}				
+			
+			$scope.excluir = function(id) {
+				
+				var _confirm = confirm("Deseja realmente excluir post?");
+				if(!_confirm) return;
+				
+				$http.delete('https://sociallirio.firebaseio.com/posts/'+id+'.json').then(function(resp) {
+					$scope.atualizar();
+				}, function(error) {
+					alert(error.data);
+				});
+			}				
+					
+			$scope.atualizar();
+		
+		}]);
+		
+	</script>	
+	
+  </body>
+</html>
